@@ -3,15 +3,17 @@ package pageObjects.saucedemo;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import pageObjects.baseObjects.BasePage;
-
-import static driver.SimpleDriver.getWebDriver;
+import pageObjects.saucedemo.entity.CheckOut;
+import pageObjects.saucedemo.entity.CheckOutBuilder;
 
 public class CheckoutPage extends BasePage {
     private final By firstName = By.id("first-name");
     private final By lastName = By.id("last-name");
     private final By zipCode = By.id("postal-code");
-    private final By continueBtn = By.id("continue");
+    private final By continueBtn = By.xpath("(//div/input)[4]");
     private final By finishBtn = By.id("finish");
+    private final By completeCheckOut = By.className("complete-header");
+    private final By checkoutStep1Passed = By.xpath("//div/span");
     private final By completeHeader = By.className("complete-header");
 
     public CheckoutPage enterFirstName(String firstName) {
@@ -38,6 +40,27 @@ public class CheckoutPage extends BasePage {
         return this;
     }
     public CheckoutPage verifyCheckout(){
+        Assert.assertEquals(getText(completeCheckOut), "THANK YOU FOR YOUR ORDER");
+        return this;
+    }
+
+    public CheckoutPage verifyCheckoutStep1Passed() {
+        Assert.assertEquals(getText(checkoutStep1Passed), "Checkout: Overview");
+        return this;
+    }
+
+    public CheckoutPage enterData(CheckOut checkOut){
+        enterFirstName(checkOut.getFirstName());
+        enterLastName(checkOut.getLastName());
+        enterZipCode(checkOut.getZipCode());
+        clickContinueBtn();
+        return this;
+    }
+    public CheckoutPage enterData(CheckOutBuilder checkOutBuilder){
+        enterFirstName(checkOutBuilder.getFirstName());
+        enterLastName(checkOutBuilder.getLastName());
+        enterZipCode(checkOutBuilder.getZipCode());
+        clickContinueBtn();
         Assert.assertEquals(getWebDriver().findElement(completeHeader).getText(), "THANK YOU FOR YOUR ORDER");
         return this;
     }

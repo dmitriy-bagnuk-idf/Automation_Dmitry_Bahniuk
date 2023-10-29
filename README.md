@@ -1,1 +1,0 @@
-AutoQA education
