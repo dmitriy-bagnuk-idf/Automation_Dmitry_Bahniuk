@@ -43,6 +43,21 @@ public class ProductPage extends BasePage {
         click(cartBtn);
         return this;
     }
+    public ProductPage clickAddToCartBikeLight(){
+        click(addToCartBikeLightBtn);
+        return this;
+    }
+    public ProductPage clickAddToCartBoltTShirt(){
+        click(addToCartBoltTShirtBtn);
+        return this;
+    }
+    public void addTopItemToCart(){
+        click(topAddToCartBtn);
+    }
+    public ProductPage addItemToCart(String locator){
+        click(By.id(locator));
+        return this;
+    }
 
     public ProductPage clickAddToCartBikeLight() {
         click(addToCartBikeLightBtn);

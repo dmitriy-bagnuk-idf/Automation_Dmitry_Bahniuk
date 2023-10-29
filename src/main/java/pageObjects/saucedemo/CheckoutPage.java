@@ -14,6 +14,8 @@ public class CheckoutPage extends BasePage {
     private final By finishBtn = By.id("finish");
     private final By completeCheckOut = By.className("complete-header");
     private final By checkoutStep1Passed = By.xpath("//div/span");
+    private final By completeHeader = By.className("complete-header");
+
     public CheckoutPage enterFirstName(String firstName) {
         enter(this.firstName, firstName);
         return this;
@@ -59,6 +61,7 @@ public class CheckoutPage extends BasePage {
         enterLastName(checkOutBuilder.getLastName());
         enterZipCode(checkOutBuilder.getZipCode());
         clickContinueBtn();
+        Assert.assertEquals(getWebDriver().findElement(completeHeader).getText(), "THANK YOU FOR YOUR ORDER");
         return this;
     }
 }
